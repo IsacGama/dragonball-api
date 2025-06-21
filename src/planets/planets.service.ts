@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Planeta } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -28,6 +29,42 @@ export class PlanetsService {
       include: {
         personagens: true,
       },
+    });
+  }
+
+  async createPlanet(data: {
+    nome: string;
+    descricao: string;
+    foto: string;
+    isDestroyed: boolean;
+  }): Promise<Planeta> {
+    return await this.prismaService.planeta.create({
+      data: {
+        nome: data.nome,
+        descricao: data.descricao,
+        foto: data.foto,
+        isDestroyed: data.isDestroyed,
+      },
+    });
+  }
+  async updatePlanet(
+    id: number,
+    data: {
+      nome?: string;
+      descricao?: string;
+      foto?: string;
+      isDestroyed?: boolean;
+    },
+  ): Promise<Planeta> {
+    return await this.prismaService.planeta.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async deletePlanet(id: number) {
+    return await this.prismaService.planeta.delete({
+      where: { id },
     });
   }
 }

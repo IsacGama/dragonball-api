@@ -9,12 +9,19 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('transformations')
 @Controller('transformations')
 export class TransformationsController {
   constructor(private transformationsService: TransformationsService) {}
 
   @Get()
+  @ApiOperation({
+    summary: 'Get all transformations',
+    description:
+      'Retrieve a list of transformations with optional filters for name, characterId, and limit.',
+  })
   async getAllTransformations(
     @Query('name') name?: string,
     @Query('characterId') characterId?: string,
@@ -28,6 +35,10 @@ export class TransformationsController {
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get transformation by ID',
+    description: 'Retrieve a transformation by its unique identifier.',
+  })
   async getTransformationById(@Param('id') id: string) {
     const transformation =
       await this.transformationsService.getTransformationById(Number(id));
@@ -35,6 +46,11 @@ export class TransformationsController {
   }
 
   @Post()
+  @ApiOperation({
+    summary: 'Create a new transformation',
+    description:
+      'Create a new transformation with the provided details including name, description, photo, and character ID.',
+  })
   async createTransformation(
     @Body()
     body: {
@@ -47,6 +63,11 @@ export class TransformationsController {
     return this.transformationsService.createTransformation(body);
   }
   @Patch(':id')
+  @ApiOperation({
+    summary: 'Update a transformation',
+    description:
+      'Update an existing transformation by its ID with the provided details.',
+  })
   async updateTransformation(
     @Param('id') id: string,
     @Body() data: { nome?: string; descricao?: string; foto?: string },
@@ -54,6 +75,10 @@ export class TransformationsController {
     return this.transformationsService.updateTransformation(Number(id), data);
   }
   @Delete(':id')
+  @ApiOperation({
+    summary: 'Delete a transformation',
+    description: 'Delete a transformation by its unique identifier.',
+  })
   async deleteTransformation(@Param('id') id: string) {
     return this.transformationsService.deleteTransformation(Number(id));
   }

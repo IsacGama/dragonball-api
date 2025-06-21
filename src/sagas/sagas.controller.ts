@@ -1,5 +1,14 @@
 import { SagasService } from './sagas.service';
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 
 @Controller('sagas')
 export class SagasController {
@@ -22,5 +31,29 @@ export class SagasController {
   async getSagaById(@Query('id') id: string) {
     const saga = await this.sagasService.getSagaById(Number(id));
     return saga;
+  }
+
+  @Post()
+  async createSaga(
+    @Body()
+    body: {
+      nome: string;
+      descricao: string;
+    },
+  ) {
+    return this.sagasService.createSaga(body);
+  }
+
+  @Patch(':id')
+  async updateSaga(
+    @Param('id') id: string,
+    @Body() data: { nome?: string; descricao?: string },
+  ) {
+    return this.sagasService.updateSaga(Number(id), data);
+  }
+
+  @Delete(':id')
+  async deleteSaga(@Query('id') id: string) {
+    return this.sagasService.deleteSaga(Number(id));
   }
 }

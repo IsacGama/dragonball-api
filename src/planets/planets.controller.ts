@@ -36,7 +36,7 @@ export class PlanetsController {
 
   @Post()
   async createPlanet(
-    @Query()
+    @Body()
     body: {
       nome: string;
       descricao: string;

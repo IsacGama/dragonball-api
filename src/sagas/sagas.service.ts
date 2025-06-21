@@ -48,4 +48,20 @@ export class SagasService {
       },
     });
   }
+
+  async updateSaga(
+    id: number,
+    data: { nome?: string; descricao?: string },
+  ): Promise<Saga> {
+    return await this.prismaService.saga.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async deleteSaga(id: number) {
+    return this.prismaService.saga.delete({
+      where: { id },
+    });
+  }
 }

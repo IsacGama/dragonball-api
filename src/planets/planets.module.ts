@@ -4,6 +4,6 @@ import { PlanetsService } from './planets.service';
 
 @Module({
   controllers: [PlanetsController],
-  providers: [PlanetsService]
+  providers: [PlanetsService],
 })
 export class PlanetsModule {}

@@ -4,6 +4,6 @@ import { TransformationsService } from './transformations.service';
 
 @Module({
   controllers: [TransformationsController],
-  providers: [TransformationsService]
+  providers: [TransformationsService],
 })
 export class TransformationsModule {}

@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Saga {
+  id          Int         @id @default(autoincrement())
+  nome        String
+  descricao   String
+  personagens Character[]
+}
+
+model Planeta {
+  id          Int         @id @default(autoincrement())
+  nome        String
+  isDestroyed Boolean      @default(false)
+  descricao   String
+  foto        String
+
+  personagens Character[]
+}
+
+model Character {
+  id          Int             @id @default(autoincrement())
+  nome        String
+  idade       Int
+  ki          String?
+  maxKi       String?
+  raca        String
+  genero      String
+  descricao   String
+  foto        String
+  afiliacao   String
+  sagaId      Int
+  planetaId   Int
+
+  saga        Saga             @relation(fields: [sagaId], references: [id])
+  planeta     Planeta          @relation(fields: [planetaId], references: [id])
+  transformacoes Transformation[]
+}
+
+model Transformation {
+  id            Int        @id @default(autoincrement())
+  nome          String
+  descricao     String
+  personagemId  Int
+  foto          String
+
+  personagem    Character  @relation(fields: [personagemId], references: [id])
+}

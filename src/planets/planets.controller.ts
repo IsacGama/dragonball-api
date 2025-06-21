@@ -1,5 +1,15 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { PlanetsService } from './planets.service';
+import { Prisma } from '@prisma/client';
 
 @Controller('planets')
 export class PlanetsController {
@@ -19,8 +29,34 @@ export class PlanetsController {
   }
 
   @Get(':id')
-  async getPlanetById(@Query('id') id: string) {
+  async getPlanetById(@Param('id') id: string) {
     const planet = await this.planetsService.getPlanetById(Number(id));
     return planet;
+  }
+
+  @Post()
+  async createPlanet(
+    @Query()
+    body: {
+      nome: string;
+      descricao: string;
+      foto: string;
+      isDestroyed: boolean;
+    },
+  ) {
+    return this.planetsService.createPlanet(body);
+  }
+
+  @Patch(':id')
+  async updatePlanet(
+    @Param('id') id: string,
+    @Body() data: Prisma.PlanetaUpdateInput,
+  ) {
+    return this.planetsService.updatePlanet(Number(id), data);
+  }
+
+  @Delete(':id')
+  async deletePlanet(@Query('id') id: string) {
+    return this.planetsService.deletePlanet(Number(id));
   }
 }

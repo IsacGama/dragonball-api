@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Planeta } from '@prisma/client';
+import { Planeta, Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -49,12 +49,7 @@ export class PlanetsService {
   }
   async updatePlanet(
     id: number,
-    data: {
-      nome?: string;
-      descricao?: string;
-      foto?: string;
-      isDestroyed?: boolean;
-    },
+    data: Prisma.PlanetaUpdateInput,
   ): Promise<Planeta> {
     return await this.prismaService.planeta.update({
       where: { id },

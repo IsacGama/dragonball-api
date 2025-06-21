@@ -7,7 +7,7 @@ export class PlanetsService {
   constructor(private prismaService: PrismaService) {}
   async getAllPlanets(filters: {
     name?: string;
-    isDestroyed: boolean;
+    isDestroyed?: boolean;
     limit?: number;
   }) {
     const { name, isDestroyed, limit } = filters;

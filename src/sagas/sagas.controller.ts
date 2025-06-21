@@ -28,7 +28,7 @@ export class SagasController {
   }
 
   @Get(':id')
-  async getSagaById(@Query('id') id: string) {
+  async getSagaById(@Param('id') id: string) {
     const saga = await this.sagasService.getSagaById(Number(id));
     return saga;
   }
@@ -53,7 +53,7 @@ export class SagasController {
   }
 
   @Delete(':id')
-  async deleteSaga(@Query('id') id: string) {
+  async deleteSaga(@Param('id') id: string) {
     return this.sagasService.deleteSaga(Number(id));
   }
 }

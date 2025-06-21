@@ -35,6 +35,11 @@ export class CharactersService {
   async getCharacterById(id: number) {
     return this.prismaService.character.findUnique({
       where: { id },
+      include: {
+        saga: true,
+        planeta: true,
+        transformacoes: true,
+      },
     });
   }
 

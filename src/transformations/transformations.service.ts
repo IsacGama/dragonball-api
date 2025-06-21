@@ -31,4 +31,36 @@ export class TransformationsService {
       },
     });
   }
+
+  async createTransformation(data: {
+    nome: string;
+    descricao: string;
+    foto: string;
+    personagemId: number;
+  }) {
+    return await this.prismaService.transformation.create({
+      data: {
+        nome: data.nome,
+        descricao: data.descricao,
+        foto: data.foto,
+        personagemId: data.personagemId,
+      },
+    });
+  }
+
+  async updateTransformation(
+    id: number,
+    data: { nome?: string; descricao?: string; foto?: string },
+  ) {
+    return await this.prismaService.transformation.update({
+      where: { id },
+      data,
+    });
+  }
+
+  async deleteTransformation(id: number) {
+    return await this.prismaService.transformation.delete({
+      where: { id },
+    });
+  }
 }

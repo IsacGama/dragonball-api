@@ -13,7 +13,7 @@ Disponível em: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 ```bash
 # Clonar o repositório
-git clone <url-do-repo>
+git clone https://github.com/IsacGama/dragonball-api.git
 
 # Acessar o diretório
 cd dragon-ball-api

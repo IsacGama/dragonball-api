@@ -23,6 +23,7 @@ export class PlanetsService {
       },
     });
   }
+
   async getPlanetById(id: number) {
     return this.prismaService.planeta.findUnique({
       where: { id },
